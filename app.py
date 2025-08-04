@@ -8,7 +8,7 @@ import io
 # ------------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("cleaned_specialites.csv")
+    df = pd.read_csv("data/cleaned_specialites.csv")
     df["taux_admission"] = df['nb_candidats_admis'] / df['nb_candidats_voeu']
     return df
 
