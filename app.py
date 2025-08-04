@@ -8,7 +8,7 @@ import io
 # ------------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("cleaned_specialites.csv")
+    df = pd.read_csv("data/cleaned_specialites.csv")
     df["taux_admission"] = df['nb_candidats_admis'] / df['nb_candidats_voeu']
     return df
 
@@ -109,7 +109,7 @@ def top_two_specialites(interests, strengths, weight_strengths=1):
     return keep, drop
 
 def filter_formations(df, specialites_to_keep):
-    return df[df['specialites_list'].apply(lambda x: all(sp in x for sp in specialites_to_keep))]
+    return df[df['specialites'].apply(lambda x: all(sp in x for sp in specialites_to_keep))]
 
 # ------------------------------
 # Streamlit UI
@@ -148,7 +148,7 @@ if generate:
 
         st.subheader("🎓 Real Parcoursup Formations for this Combo")
         if not matching_df.empty:
-            result_df = matching_df[['formation', 'specialites_list', 'nb_candidats_voeu', 'taux_admission']].sort_values(by="nb_candidats_voeu", ascending=False)
+            result_df = matching_df[['formation', 'specialites', 'nb_candidats_voeu', 'taux_admission']].sort_values(by="nb_candidats_voeu", ascending=False)
             st.dataframe(result_df)
 
             # Download CSV
